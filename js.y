@@ -359,7 +359,7 @@ Identifier_opt
   ;
 
 Statement
-  : Block
+  : BlockStatement
   | VariableStatement
   | EmptyStatement
   | ExpressionStatement
@@ -373,6 +373,10 @@ Statement
   | SwitchStatement
   | ThrowStatement
   | TryStatement
+  ;
+
+BlockStatement
+  : Block
   ;
 
 Block
