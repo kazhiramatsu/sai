@@ -667,9 +667,15 @@ NewExpression
 
 CallExpression
   : MemberExpression Arguments
+  | SuperCall
   | CallExpression Arguments
   | CallExpression '[' Expression ']'
-  | CallExpression '.' IDENTIFIER
+  | CallExpression '.' IDENTIFIER_NAME
+  | CallExpression '.' TEMPLATE_LITERAL
+  ;
+
+SuperCall
+  : SUPER Arguments
   ;
 
 Arguments
