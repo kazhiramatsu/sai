@@ -96,6 +96,7 @@
 %token ARROW
 %token ARROWPAREN
 %token OF
+%token ASTA
 
 %start Program
 
@@ -190,12 +191,20 @@ StrictFormalParameters
 FormalParameters
   : FormalParameterList 
   | FormalParameter
+  | GeneratorMethod
   ;
-// GeneratorMethod[?Yield]
 // get PropertyName[?Yield] ( ) { FunctionBody }
 // set PropertyName[?Yield] ( PropertySetParameterList ) { FunctionBody }
 // PropertySetParameterList :
 
+GeneratorMethod
+  : ASTA PropertyName '(' StrictFormalParameters ')' '{' GeneratorBody '}'
+  ;
+
+GeneratorBody
+  : FunctionBody
+  ;
+ 
 FormalParameter
   : BindingElement
   ;
