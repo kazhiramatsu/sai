@@ -99,6 +99,8 @@
 %token ASTA
 %token GET
 %token SET
+%token AS
+%token FROM
 
 %start Program
 
@@ -139,7 +141,47 @@ SourceElement
   ;
 
 ImportDeclaration
-  : IMPORT ModuleSpecifier ';' 
+  : IMPORT ImportClause FromClause ';'
+  | IMPORT ModuleSpecifier ';' 
+  ;
+
+ImportClause
+  : ImportedDefaultBinding
+  | NameSpaceImport
+  | NamedImports
+  | ImportedDefaultBinding ',' NameSpaceImport
+  | ImportedDefaultBinding ',' NamedImports
+  ;
+
+ImportedDefaultBinding
+  : ImportedBinding
+  ;
+
+ImportedBinding
+  : BindingIdentifier
+  ;
+
+NameSpaceImport
+  : ASTA AS ImportedBinding
+  ;
+
+NamedImports
+  : '{' '}'
+  | '{' ImportsList '}'
+  | '{' ImportsList ',' '}'
+  ;
+
+ImportsList
+  : ImportSpecifier
+  | ImportsList ',' ImportSpecifier
+  ;
+
+ImportSpecifier
+  : ImportedBinding
+  | IDENTIFIER_NAME AS ImportedBinding
+  ;
+FromClause
+  : FROM ModuleSpecifier
   ;
 
 ModuleSpecifier
