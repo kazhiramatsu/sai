@@ -104,6 +104,7 @@
 %token AS
 %token FROM
 %token TEMPLATE_LITERAL
+%token TARGET
 
 %start Program
 
@@ -639,8 +640,24 @@ PropertyNameAndValueList
 MemberExpression
   : PrimaryExpression
   | MemberExpression '[' Expression ']'
-  | MemberExpression '.' IDENTIFIER
+  | MemberExpression '.' IDENTIFIER_NAME
+  | MemberExpression '.' TEMPLATE_LITERAL
+  | SuperProperty
+  | MetaProperty
   | NEW MemberExpression Arguments
+  ;
+
+SuperProperty
+  : SUPER '[' Expression ']'
+  | SUPER '.' IDENTIFIER_NAME
+  ;
+
+MetaProperty
+  : NewTarget
+  ;
+
+NewTarget
+  : NEW '.' TARGET
   ;
 
 NewExpression
