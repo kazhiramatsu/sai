@@ -202,7 +202,7 @@ FormalParameter
 
 BindingPattern
   : ObjectBindingPattern
-  // | ArrayBindingPattern
+  | ArrayBindingPattern
   ;
 
 ObjectBindingPattern
@@ -240,7 +240,27 @@ SingleNameBinding
   ;
 
 ArrayBindingPattern
+  : '[' Elision_opt BindingRestElement_opt ']'
+  | '[' BindingElementList ']'
+  | '[' BindingElementList ',' Elision_opt BindingRestElement_opt ']'
+  ;
+
+BindingRestElement_opt
   :
+  | BindingRestElement
+  ;
+
+BindingRestElement
+  : DOT3 BindingIdentifier
+  ;
+
+BindingElementList
+  : BindingElisionElement
+  | BindingElementList ',' BindingElisionElement
+  ;
+
+BindingElisionElement
+  : Elision_opt BindingElement
   ;
 
 FormalParameterList_opt
