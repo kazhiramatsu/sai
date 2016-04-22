@@ -11,6 +11,7 @@
 %token CATCH
 %token CHAR
 %token CLASS
+%token LET
 %token CONST
 %token CONTINUE
 %token DEBUGGER
@@ -107,7 +108,45 @@
 %%
 
 Program
-  : SourceElements
+  : SourceBody_opt
+  ;
+
+SourceBody_opt
+  :
+  | SourceElements
+  ;
+
+SourceElements
+  : SourceElement
+  | SourceElements SourceElement
+  ;
+
+SourceElement
+  : ImportDeclaration
+  | ExportDeclaration
+  | StatementListItem
+  ;
+
+ExportDeclaration
+  : EXPORT ASTA FromClause ';'
+  | EXPORT ExportClause FromClause ';'
+  | EXPORT ExportClause ';'
+  | EXPORT VariableStatement
+  | EXPORT Declaration
+  | EXPORT DEFAULT HoistableDeclaration
+  | EXPORT DEFAULT ClassDeclaration
+  | EXPORT DEFAULT /*[lookahead ∉ {function, class}]*/ AssignmentExpression ';'
+  ;
+
+Declaration
+  : HoistableDeclaration
+  | ClassDeclaration
+  | LexicalDeclaration
+  ;
+
+HoistableDeclaration
+  : FunctionDeclaration
+  | GeneratorDeclaration
   ;
 
 FunctionDeclaration
@@ -125,31 +164,31 @@ FormalParameterList
 
 FunctionBody
   :
-  | SourceElements
+  | StatementList
   ;
 
-SourceElements
-  : SourceElement
-  | SourceElements SourceElement
+GeneratorDeclaration
+  : FUNCTION ASTA BindingIdentifier '(' FormalParameters ')' '{' GeneratorBody '}'
+  | FUNCTION ASTA '(' FormalParameters ')' '{' GeneratorBody '}'
   ;
 
-SourceElement
-  : Statement
-  | FunctionDeclaration
-  | ClassDeclaration
-  | ImportDeclaration
-  | ExportDeclaration
+LexicalDeclaration
+  : LetOrConst BindingList ';'
   ;
 
-ExportDeclaration
-  : EXPORT ASTA FromClause ';'
-  | EXPORT ExportClause FromClause ';'
-  | EXPORT ExportClause ';'
-  | EXPORT VariableStatement
-//  | EXPORT Declaration
-//  | EXPORT DEFAULT HoistableDeclaration
-  | EXPORT DEFAULT ClassDeclaration
-  | EXPORT DEFAULT /*[lookahead ∉ {function, class}]*/ AssignmentExpression ';'
+LetOrConst
+  : LET
+  | CONST
+  ;
+
+BindingList
+  : LexicalBinding
+  | BindingList ',' LexicalBinding
+  ;
+
+LexicalBinding
+  : BindingIdentifier Initializer_opt
+  | BindingPattern Initializer
   ;
 
 ExportClause
@@ -385,8 +424,13 @@ Block
   ;
 
 StatementList
+  : StatementListItem
+  | StatementList StatementListItem
+  ;
+
+StatementListItem
   : Statement
-  | StatementList Statement
+  | Declaration
   ;
 
 VariableStatement
