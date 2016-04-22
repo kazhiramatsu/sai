@@ -138,11 +138,39 @@ SourceElement
   | FunctionDeclaration
   | ClassDeclaration
   | ImportDeclaration
+  | ExportDeclaration
+  ;
+
+ExportDeclaration
+  : EXPORT ASTA FromClause ';'
+  | EXPORT ExportClause FromClause ';'
+  | EXPORT ExportClause ';'
+  | EXPORT VariableStatement
+//  | EXPORT Declaration
+//  | EXPORT DEFAULT HoistableDeclaration
+  | EXPORT DEFAULT ClassDeclaration
+  | EXPORT DEFAULT /*[lookahead ∉ {function, class}]*/ AssignmentExpression ';'
+  ;
+
+ExportClause
+  : '{' '}'
+  | '{' ExportsList '}'
+  | '{' ExportsList ',' '}'
+  ;
+
+ExportsList
+  : ExportSpecifier
+  | ExportsList ',' ExportSpecifier
   ;
 
 ImportDeclaration
   : IMPORT ImportClause FromClause ';'
   | IMPORT ModuleSpecifier ';' 
+  ;
+
+ExportSpecifier
+  : IDENTIFIER_NAME
+  | IDENTIFIER_NAME AS IDENTIFIER_NAME
   ;
 
 ImportClause
