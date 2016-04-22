@@ -97,6 +97,8 @@
 %token ARROWPAREN
 %token OF
 %token ASTA
+%token GET
+%token SET
 
 %start Program
 
@@ -183,19 +185,23 @@ ClassElement
 
 MethodDefinition
   : PropertyName '(' StrictFormalParameters ')' '{' FunctionBody '}'
+  | GeneratorMethod
+  | GET PropertyName '(' ')' '{' FunctionBody '}'
+  | SET PropertyName '(' PropertySetParameterList ')' '{' FunctionBody '}'
   ;
 
 StrictFormalParameters
   :  FormalParameters
   ;
+
 FormalParameters
-  : FormalParameterList 
-  | FormalParameter
-  | GeneratorMethod
+  :
+  | FormalParameterList 
   ;
-// get PropertyName[?Yield] ( ) { FunctionBody }
-// set PropertyName[?Yield] ( PropertySetParameterList ) { FunctionBody }
-// PropertySetParameterList :
+
+PropertySetParameterList
+  : FormalParameter
+  ;
 
 GeneratorMethod
   : ASTA PropertyName '(' StrictFormalParameters ')' '{' GeneratorBody '}'
