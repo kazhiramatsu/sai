@@ -11,6 +11,7 @@
 %token CATCH
 %token CHAR
 %token CLASS
+%token CLASSEXPR
 %token LET
 %token CONST
 %token CONTINUE
@@ -102,6 +103,7 @@
 %token SET
 %token AS
 %token FROM
+%token TEMPLATE_LITERAL
 
 %start Program
 
@@ -593,7 +595,14 @@ PrimaryExpression
   | Literal
   | ArrayLiteral
   | ObjectLiteral
+  | ClassExpression
+  | TEMPLATE_LITERAL
   | '(' Expression ')'
+  ;
+
+ClassExpression
+  : CLASSEXPR ClassTail
+  | CLASSEXPR BindingIdentifier ClassTail
   ;
 
 ArrayLiteral
