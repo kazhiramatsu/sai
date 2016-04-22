@@ -106,25 +106,29 @@
 %token TEMPLATE_LITERAL
 %token TARGET
 
-%start Program
+%start Module
 
 %%
 
-Program
-  : SourceBody_opt
+Module
+  : ModuleBody_opt
   ;
 
-SourceBody_opt
+ModuleBody_opt
   :
-  | SourceElements
+  | ModuleBody
   ;
 
-SourceElements
-  : SourceElement
-  | SourceElements SourceElement
+ModuleBody
+  : ModuleItemList
   ;
 
-SourceElement
+ModuleItemList
+  : ModuleItem
+  | ModuleItemList ModuleItem
+  ;
+
+ModuleItem
   : ImportDeclaration
   | ExportDeclaration
   | StatementListItem
