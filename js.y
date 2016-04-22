@@ -163,6 +163,10 @@ FormalParameterList
   ;
 
 FunctionBody
+  : FunctionStatementList
+  ;
+
+FunctionStatementList
   :
   | StatementList
   ;
