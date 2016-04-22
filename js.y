@@ -595,6 +595,7 @@ PrimaryExpression
   | Literal
   | ArrayLiteral
   | ObjectLiteral
+  | FunctionExpression
   | ClassExpression
   | TEMPLATE_LITERAL
   | '(' Expression ')'
@@ -637,7 +638,6 @@ PropertyNameAndValueList
 
 MemberExpression
   : PrimaryExpression
-  | FunctionExpression
   | MemberExpression '[' Expression ']'
   | MemberExpression '.' IDENTIFIER
   | NEW MemberExpression Arguments
