@@ -509,9 +509,22 @@ IterationStatement
   | WHILE '(' Expression ')' Statement
   | FOR '(' ExpressionNoIn_opt ';' Expression_opt ';' Expression_opt ')' Statement
   | FOR '(' VAR VariableDeclarationListNoIn ';' Expression_opt ';' Expression_opt ')' Statement
+  | FOR '(' LexicalDeclaration ';' Expression_opt ';' Expression_opt ')' Statement
   | FOR '(' LeftHandSideExpression IN Expression ')' Statement
-  | FOR '(' VAR VariableDeclarationNoIn IN Expression ')' Statement
+  | FOR '(' VAR ForBinding OF AssignmentExpression ')' Statement
+  | FOR '(' ForDeclaration IN Expression ')' Statement
   | FOR '(' LeftHandSideExpression OF AssignmentExpression ')' Statement
+  | FOR '(' VAR ForBinding IN Expression ')' Statement
+  | FOR '(' VAR ForDeclaration OF AssignmentExpression ')' Statement
+  ;
+
+ForDeclaration
+  : LetOrConst ForBinding
+  ;
+
+ForBinding
+  : BindingIdentifier 
+  | BindingPattern
   ;
 
 ContinueStatement
