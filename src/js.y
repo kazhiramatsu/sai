@@ -369,8 +369,13 @@ BindingProperty
 
 PropertyName
   : LiteralPropertyName
-  // | ComputedPropertyName
+  | ComputedPropertyName
   ;
+
+ComputedPropertyName
+  : '[' AssignmentExpression ']'
+  ;
+
 LiteralPropertyName
   : IDENTIFIER_NAME
   | STRING_LITERAL
