@@ -1,4 +1,12 @@
 %{
+#include "sai/parser.h"
+
+#define YYDEBUG 1
+#define YYERROR_VERBOSE 1
+// #define YYMALLOC(n) GC_MALLOC((n))
+// #define YYFREE(o)   GC_FREE((o))
+#define YYSTACK_USE_ALLOCA 0
+#define YYLEX_PARAM c
 %}
 
 %token ABSTRACT
@@ -105,6 +113,10 @@
 %token FROM
 %token TEMPLATE_LITERAL
 %token TARGET
+
+%pure_parser
+%parse-param {SaiParserContext *c}
+%lex-param {SaiParserContext *c}
 
 %start Module
 
@@ -914,4 +926,23 @@ Elision_opt
   ;
 
 %%
+
+int
+yylex(void *lval, SaiParserContext *c)
+{
+  return 0;
+}
+
+void
+yywarn(SaiParserContext *c, const char *s)
+{
+  fprintf(stderr, "%s\n", s);
+}
+
+void
+yyerror(SaiParserContext *c, const char *s)
+{
+  fprintf(stderr, "%s\n", s);
+}
+
 
