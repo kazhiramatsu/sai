@@ -4,35 +4,35 @@
 #include "sai/string.h"
 #include "sai/number.h"
 
-typedef struct SaiPosition  {
-  SaiNumber line;
-  SaiNumber column;
-} SaiPosition;
+typedef struct saiPosition  {
+  saiNumber line;
+  saiNumber column;
+} saiPosition;
 
-typedef struct SaiSourceLocation  {
-  SaiString source;
-  SaiPosition start;
-  SaiPosition end;
-} SaiSourceLocation;
+typedef struct saiSourceLocation  {
+  saiString source;
+  saiPosition start;
+  saiPosition end;
+} saiSourceLocation;
 
-typedef struct SaiNode {
-  SaiString type;
-  SaiSourceLocation loc;
-} SaiNode;
+typedef struct saiNode {
+  saiString type;
+  saiSourceLocation loc;
+} saiNode;
 
-enum SaiSourceType {
+enum saiSourceType {
   SAI_SOURCE_TYPE_SCRIPT,
   SAI_SOURCE_TYPE_MODULE,
 };
 
-typedef struct SaiProgramNode {
-  SaiNode base;
-  enum SaiSourceType sourceType;
-  SaiString *body;
-} SaiProgramNode;
+typedef struct saiProgramNode {
+  saiNode base;
+  enum saiSourceType sourceType;
+  saiString *body;
+} saiProgramNode;
 
-typedef struct SaiFunctionNode {
-  SaiNode base;
-} SaiFunctionNode;
+typedef struct saiFunctionNode {
+  saiNode base;
+} saiFunctionNode;
 
 #endif

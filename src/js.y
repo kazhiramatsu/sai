@@ -49,9 +49,9 @@
 %token IF
 %token IMPLEMENTS
 %token IMPORT
-%token IN
 %token INCREMENT
 %token INSTANCEOF
+%token IN
 %token INT
 %token INTERFACE
 %token LESS_EQUAL
@@ -115,8 +115,8 @@
 %token TARGET
 
 %pure_parser
-%parse-param {SaiParserContext *c}
-%lex-param {SaiParserContext *c}
+%parse-param {saiParserContext *c}
+%lex-param {saiParserContext *c}
 
 %start Module
 
@@ -946,19 +946,19 @@ Elision_opt
 %%
 
 int
-yylex(void *lval, SaiParserContext *c)
+yylex(void *lval, saiParserContext *c)
 {
   return 0;
 }
 
 void
-yywarn(SaiParserContext *c, const char *s)
+yywarn(saiParserContext *c, const char *s)
 {
   fprintf(stderr, "%s\n", s);
 }
 
 void
-yyerror(SaiParserContext *c, const char *s)
+yyerror(saiParserContext *c, const char *s)
 {
   fprintf(stderr, "%s\n", s);
 }

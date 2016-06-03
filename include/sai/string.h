@@ -3,9 +3,9 @@
 
 #include "sai/sai.h"
 
-typedef uint64_t SaiString;
+typedef uint64_t saiString;
 
-struct SaiString {
+struct saiString {
   const char *buffer;
   size_t length;
 };

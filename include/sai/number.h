@@ -3,6 +3,6 @@
 
 #include "sai/sai.h"
 
-typedef uint64_t SaiNumber;
+typedef uint64_t saiNumber;
 
 #endif

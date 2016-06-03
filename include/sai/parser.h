@@ -3,13 +3,13 @@
 
 #include "sai/node.h"
 
-typedef struct SaiParserContext {
+typedef struct saiParserContext {
 
-} SaiParserContext;
+} saiParserContext;
 
-int yyparse(SaiParserContext *c);
-int yylex(void *lval, SaiParserContext *c);
-void yyerror(SaiParserContext *c, const char *s);
-void yywarn(SaiParserContext *c, const char *s);
+int yyparse(saiParserContext *c);
+int yylex(void *lval, saiParserContext *c);
+void yyerror(saiParserContext *c, const char *s);
+void yywarn(saiParserContext *c, const char *s);
 
 #endif
