@@ -5,8 +5,8 @@
 int
 main(int argc, char **argv)
 {
-  saiParserContext c;
-  yyparse(&c);
+  sai_parser p;
+  yyparse(&p);
 
   return 0;
 }

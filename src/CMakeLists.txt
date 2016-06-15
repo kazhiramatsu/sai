@@ -4,9 +4,9 @@ project(sai)
 
 find_package(bison)
 
-bison_target(sai js.y "${CMAKE_CURRENT_SOURCE_DIR}/js.tab.c")
-
 file(GLOB SAI_SRC_C "*.c")
+
+bison_target(sai js.y "${CMAKE_CURRENT_SOURCE_DIR}/js.tab.c")
 
 #include_directories(/Users/hiramatsu/miyabi/include /usr/local/include)
 include_directories(../include)

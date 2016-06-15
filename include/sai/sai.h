@@ -15,4 +15,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "sai/state.h"
+#include "sai/value.h"
+
 #endif

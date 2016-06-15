@@ -6,7 +6,7 @@
 // #define YYMALLOC(n) GC_MALLOC((n))
 // #define YYFREE(o)   GC_FREE((o))
 #define YYSTACK_USE_ALLOCA 0
-#define YYLEX_PARAM c
+#define YYLEX_PARAM p
 %}
 
 %token ABSTRACT
@@ -115,8 +115,14 @@
 %token TARGET
 
 %pure_parser
-%parse-param {saiParserContext *c}
-%lex-param {saiParserContext *c}
+%parse-param {sai_parser *p}
+%lex-param {sai_parser *p}
+
+%union {
+  sai_node *node;
+}
+
+%type <node> ModuleBody ModuleBody_opt 
 
 %start Module
 
@@ -124,6 +130,7 @@
 
 Module
   : ModuleBody_opt
+  { }
   ;
 
 ModuleBody_opt
@@ -946,19 +953,19 @@ Elision_opt
 %%
 
 int
-yylex(void *lval, saiParserContext *c)
+yylex(void *lval, sai_parser *p)
 {
   return 0;
 }
 
 void
-yywarn(saiParserContext *c, const char *s)
+yywarn(sai_parser *p, const char *s)
 {
   fprintf(stderr, "%s\n", s);
 }
 
 void
-yyerror(saiParserContext *c, const char *s)
+yyerror(sai_parser *p, const char *s)
 {
   fprintf(stderr, "%s\n", s);
 }
